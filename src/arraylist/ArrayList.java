@@ -14,4 +14,49 @@ public class ArrayList {
 		this.size = 0;
 	}
 	
+	public boolean add(Integer data) {
+		makeSureCapacity(this.size + 1);
+		this.list[this.size++] = data;
+		return true;
+	}
+	
+	public void add(int index, Integer data) {
+		if (index < 0 || index > this.size) {
+			throw new IndexOutOfBoundsException();	
+		}
+	
+		makeSureCapacity(this.size + 1);
+		
+		shiftToRight(index);
+		
+		this.list[index] = data;
+	}
+	
+	public void set(int index, Integer data) {
+		if (index < 0 || index >= this.size) {
+			throw new IndexOutOfBoundsException();
+		}
+		this.list[index] = data;
+	}
+	
+	private void makeSureCapacity(int newCapacity) {
+		if (newCapacity > this.list.length) {
+			resize(this.list.length * 2);
+		}
+	}
+
+	private void resize(int newCapacity) {
+		Integer[] newList = new Integer[newCapacity];
+		for (int i = 0; i < this.list.length; i++) {
+			newList[i] = this.list[i];
+		}
+		this.list = newList;
+	}
+		
+	private void shiftToRight(int index) {
+		for (int i = this.size; i > index; i--) {
+			this.list[i] = this.list[i-1];
+		}
+	}
+	
 }
