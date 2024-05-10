@@ -92,4 +92,23 @@ public class ArrayList {
 		}
 	}
 	
+	public Integer get(int index) {
+		if (index < 0 || index >= this.size) {
+			throw new IndexOutOfBoundsException();
+		}
+		return list[index];
+	}
+	
+	public int indexOf(Integer data) {
+		for (int i = 0; i < this.size; i++) {
+			if (this.list[i] == data) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public boolean contains(Integer data) {
+		return indexOf(data) != -1;
+	}
 }
