@@ -30,6 +30,7 @@ public class ArrayList {
 		shiftToRight(index);
 		
 		this.list[index] = data;
+		this.size++;
 	}
 	
 	public void set(int index, Integer data) {
@@ -110,5 +111,9 @@ public class ArrayList {
 	
 	public boolean contains(Integer data) {
 		return indexOf(data) != -1;
+	}
+
+	public int getSize() {
+		return size;
 	}
 }
