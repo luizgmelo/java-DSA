@@ -59,4 +59,37 @@ public class ArrayList {
 		}
 	}
 	
+	public Integer remove(int index) {
+		if (index < 0 || index >= this.size) {
+			return null;
+		}
+		
+		Integer integer = this.get(index);
+		
+		shiftToLeft(index);
+		this.size--;
+		
+		return integer;
+	}
+	
+	public boolean remove(Integer data) {
+		if (data == null) return false;
+		
+		for (int i = 0; i < this.size; i++) {
+			if (this.list[i].equals(data)) {
+				shiftToLeft(i);
+				this.size--;
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void shiftToLeft(int index) {
+		for (int i = index; i < this.size; i++) {
+			this.list[i] = this.list[i+1];
+		}
+	}
+	
 }
