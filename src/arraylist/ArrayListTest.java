@@ -59,4 +59,35 @@ class ArrayListTest {
 		assertEquals(array.get(2), 23);
 	}
 
+	@Test
+	void testRemove() {
+		ArrayList array = new ArrayList(5);
+		array.add(2); // removed
+		array.add(4);
+		array.add(8); // removed
+		array.add(23);
+		
+		assertEquals(array.remove(0), 2);
+		assertEquals(array.getSize(), 3);
+		assertEquals(array.get(0), 4);
+		assertEquals(array.get(1), 8);
+		assertEquals(array.remove(1), 8);
+		assertEquals(array.getSize(), 2);		
+		assertEquals(array.get(1), 23);
+	}
+	
+	@Test
+	void testBoolRemove() {
+		ArrayList array = new ArrayList(5);
+		array.add(2); // removed
+		array.add(4);
+		array.add(8); // removed
+		array.add(23);
+		
+		assertTrue(array.remove((Integer) 2));
+		assertTrue(array.remove((Integer) 8));
+		
+		assertTrue(array.get(0) == 4);
+		assertEquals(2, array.getSize());
+	}
 }
