@@ -1,0 +1,6 @@
+Desafio.
+
+Que tal implementar a pilha de outras duas maneiras? 
+
+Quando encher, faz o resize ao invés de lançar a exceção. (StackResize)
+A outra alternativa é sobrescrever o topo quando encher. (StackOverride)
