@@ -90,4 +90,32 @@ class ArrayListTest {
 		assertTrue(array.get(0) == 4);
 		assertEquals(2, array.getSize());
 	}
+	
+	@Test
+	void testIndexOf() {
+		ArrayList array = new ArrayList();
+		array.add(2);
+		array.add(4);
+		array.add(8);
+		assertEquals(array.getSize(), 3);
+		
+		assertEquals(array.indexOf(2), 0);
+		assertEquals(array.indexOf(4), 1);
+		assertEquals(array.indexOf(8), 2);
+		assertEquals(array.indexOf(999), -1);
+	}
+	
+	@Test
+	void contains() {
+		ArrayList array = new ArrayList();
+		array.add(2);
+		array.add(4);
+		array.add(8);
+		assertEquals(array.getSize(), 3);
+		
+		assertTrue(array.contains(2));
+		assertTrue(array.contains(4));
+		assertTrue(array.contains(8));
+		assertFalse(array.contains(999));
+	}
 }
