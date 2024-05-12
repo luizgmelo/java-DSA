@@ -1,0 +1,5 @@
+O desafio é fazer a Queue funcionar também sem o shiftLeft utilizando a ideia de range entre dois indices,
+fazendo operações com resto.
+
+https://joaoarthurbm.github.io/eda/posts/fifoarray/
+aqui a referência de como isso deve se parecer.
