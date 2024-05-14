@@ -73,6 +73,27 @@ public class LinkedList {
 		return aux.getData();
 	}
 	
+	public int indexOf(Person person) {
+		Node aux = this.head;
+		int i = 0;
+		
+		while (aux != null) {
+			if (aux.getData().getName().equalsIgnoreCase(person.getName())
+					&& aux.getData().getAge() == person.getAge()) {
+				return i;
+			}
+			
+			aux = aux.getNext();
+			i++;
+		}
+		
+		return -1;
+	}
+	
+	public boolean contains(Person person) {
+		return indexOf(person) != -1;
+	}
+	
 	public Person getFirst() {
 		if (isEmpty()) return null;
 		return this.head.getData();
