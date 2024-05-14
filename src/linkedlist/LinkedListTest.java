@@ -2,6 +2,8 @@ package linkedlist;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
@@ -17,16 +19,16 @@ class LinkedListTest {
 		LinkedList myList = new LinkedList();
 		assertTrue(myList.isEmpty());
 		myList.addLast(new Person("João", 18));
-		assertEquals(myList.getFirst().getData().getName(), "João");
-		assertEquals(myList.getLast().getData().getName(), "João");
+		assertEquals(myList.getFirst().getName(), "João");
+		assertEquals(myList.getLast().getName(), "João");
 		assertFalse(myList.isEmpty());
 		
 		myList.addLast(new Person("Maria", 23));		
 		myList.addLast(new Person("Junior", 19));
 		myList.addLast(new Person("Paulo", 54));
 		myList.addLast(new Person("Marcelo", 62));
-		assertEquals(myList.getFirst().getData().getName(), "João");
-		assertEquals(myList.getLast().getData().getName(), "Marcelo");
+		assertEquals(myList.getFirst().getName(), "João");
+		assertEquals(myList.getLast().getName(), "Marcelo");
 		assertFalse(myList.isEmpty());
 	}
 	
@@ -34,16 +36,28 @@ class LinkedListTest {
 	void testAddFirst() {
 		LinkedList myList = new LinkedList();
 		myList.addFirst(new Person("Maria", 23));
-		assertEquals(myList.getFirst().getData().getName(), "Maria");
-		assertEquals(myList.getLast().getData().getName(), "Maria");
+		assertEquals(myList.getFirst().getName(), "Maria");
+		assertEquals(myList.getLast().getName(), "Maria");
 		
 		myList.addFirst(new Person("Pedro", 17));
 		myList.addFirst(new Person("Lucas", 42));
 		myList.addFirst(new Person("Mario", 62));
 		myList.addFirst(new Person("Fernando", 58));
-		assertEquals(myList.getFirst().getData().getName(), "Fernando");
-		assertEquals(myList.getLast().getData().getName(), "Maria");
+		assertEquals(myList.getFirst().getName(), "Fernando");
+		assertEquals(myList.getLast().getName(), "Maria");
 		assertFalse(myList.isEmpty());
+	}
+	
+	@Test
+	void testGet() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Marina", 19));
+		myList.addLast(new Person("Aroldo", 24));
+		myList.addLast(new Person("Godofredo", 32));
+		
+		assertEquals(myList.get(0).getName(), "Marina");
+		assertEquals(myList.get(1).getName(), "Aroldo");
+		assertEquals(myList.get(2).getName(), "Godofredo");
 	}
 	
 	@Test
@@ -55,22 +69,77 @@ class LinkedListTest {
 		
 		// add last maria <-> lucas <-> mario
 		myList.add(1, new Person("Mario", 62));
-		assertEquals(myList.getLast().getData().getName(), "Mario");
-		assertEquals(myList.getLast().getNext(), null);
-		assertEquals(myList.getLast().getPrev().getData().getName(), "Lucas");
+		assertEquals(myList.getLast().getName(), "Mario");
 		
 		//add first pedro <-> maria <-> lucas <-> mario
 		myList.add(0, new Person("Pedro", 63));
-		assertEquals(myList.getFirst().getData().getName(), "Pedro");
-		assertEquals(myList.getFirst().getNext().getData().getName(), "Maria");
+		assertEquals(myList.getFirst().getName(), "Pedro");
 				
 		// add in middle pedro <-> breno <-> maria <-> lucas <-> mario
 		myList.add(1, new Person("Breno", 35));
-		assertEquals(myList.getFirst().getNext().getData().getName(), "Breno");
+		assertEquals(myList.get(1).getName(), "Breno");
+		
 		// pedro <-> raquel <-> breno <-> maria <-> lucas <-> mario
 		myList.add(1, new Person("Raquel", 21));
-		assertEquals(myList.getFirst().getNext().getData().getName(), "Raquel");
-		assertEquals(myList.getFirst().getNext().getPrev().getData().getName(), "Pedro");
-		assertEquals(myList.getFirst().getNext().getNext().getData().getName(), "Breno");
+		assertEquals(myList.get(1).getName(), "Raquel");;
+		assertEquals(myList.getFirst().getName(), "Pedro");
+		assertEquals(myList.get(2).getName(), "Breno");;
+	}
+	
+	@Test
+	void testIndexOf() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		// indexOf by name(ignoreCase) and age
+		assertEquals(myList.indexOf(new Person("Maria", 23)), 0);
+		assertEquals(myList.indexOf(new Person("MARIA", 23)), 0);
+		assertEquals(myList.indexOf(new Person("Junior", 19)), 1);
+		assertEquals(myList.indexOf(new Person("juNioR", 19)), 1);
+		assertEquals(myList.indexOf(new Person("Paulo", 54)), 2);
+		
+		// wrongs ages
+		assertEquals(myList.indexOf(new Person("Junior", 72)), -1);
+		assertEquals(myList.indexOf(new Person("Paulo", 99)), -1);
+		// wrongs name and ages
+		assertEquals(myList.indexOf(new Person("Roberto", 62)), -1);
+		assertEquals(myList.indexOf(new Person("Jailson", 42)), -1);
+	}
+	
+	@Test
+	void testContains() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		// contains by name(ignoreCase) and age
+		assertTrue(myList.contains(new Person("Maria", 23)));
+		assertTrue(myList.contains(new Person("junior", 19)));
+		assertTrue(myList.contains(new Person("pauLo", 54)));
+		// wrong age
+		assertFalse(myList.contains(new Person("Maria", 42)));
+		// wrong name
+		assertFalse(myList.contains(new Person("Mariaaa", 23)));
+		// wrong name and age
+		assertFalse(myList.contains(new Person("Roberto", 62)));
+	}
+	
+	@Test
+	void testRemoveFirst() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		assertEquals(myList.removeFirst().getName(), "Maria");
+		assertEquals(myList.removeFirst().getName(), "Junior");
+		assertEquals(myList.removeFirst().getName(), "Paulo");
+		assertTrue(myList.isEmpty());
+		
+		assertThrows(NoSuchElementException.class, () -> myList.removeFirst());
+	    
 	}
 }
