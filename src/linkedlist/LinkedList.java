@@ -63,6 +63,16 @@ public class LinkedList {
 		}
 	}
 	
+	public Person get(int index) {
+		if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException();
+		
+		Node aux = this.head;
+		for (int i = 0; i < index; i++) {
+			aux = aux.getNext();
+		}
+		return aux.getData();
+	}
+	
 	public Person getFirst() {
 		if (isEmpty()) return null;
 		return this.head.getData();
