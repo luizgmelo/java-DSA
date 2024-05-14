@@ -63,13 +63,13 @@ public class LinkedList {
 		}
 	}
 	
-	public Node getFirst() {
+	public Person getFirst() {
 		if (isEmpty()) return null;
-		return this.head;
+		return this.head.getData();
 	}
 	
-	public Node getLast() {
+	public Person getLast() {
 		if (isEmpty()) return null;
-		return this.tail;
+		return this.tail.getData();
 	}
 }
