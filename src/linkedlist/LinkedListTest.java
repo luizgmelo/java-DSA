@@ -140,6 +140,55 @@ class LinkedListTest {
 		assertTrue(myList.isEmpty());
 		
 		assertThrows(NoSuchElementException.class, () -> myList.removeFirst());
-	    
+	}
+	
+	@Test
+	void testRemoveLast() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		assertEquals(myList.removeLast().getName(), "Paulo");
+		assertEquals(myList.removeLast().getName(), "Junior");
+		assertEquals(myList.removeLast().getName(), "Maria");
+		assertTrue(myList.isEmpty());
+		
+		assertThrows(NoSuchElementException.class, () -> myList.removeLast());
+	}
+	
+	@Test
+	void testRemove() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		assertEquals(myList.remove(2).getName(), "Paulo");
+		assertEquals(myList.remove(1).getName(), "Junior");
+		assertEquals(myList.remove(0).getName(), "Maria");
+		assertTrue(myList.isEmpty());
+		
+		assertThrows(IndexOutOfBoundsException.class, () -> myList.remove(3));
+	}
+	
+	@Test
+	void testRemoveBool() {
+		LinkedList myList = new LinkedList();
+		myList.addLast(new Person("Maria", 23));		
+		myList.addLast(new Person("Junior", 19));
+		myList.addLast(new Person("Paulo", 54));
+		
+		// wrong memory
+		assertFalse(myList.remove(new Person("Maria", 23)));
+		assertFalse(myList.remove(new Person("Junior", 19)));
+		assertFalse(myList.remove(new Person("Paulo", 54)));
+		assertFalse(myList.isEmpty());
+		
+		// sucess removes
+		assertTrue(myList.remove(myList.get(1))); // junior removed
+		assertTrue(myList.remove(myList.get(1))); // paulo removed
+		assertTrue(myList.remove(myList.get(0))); // maria removed
+		assertTrue(myList.isEmpty());	
 	}
 }
