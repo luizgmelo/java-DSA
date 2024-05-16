@@ -14,11 +14,11 @@ public class HashTable {
 		this.table = new ArrayList[capacity];
 	}
 	
-	public int hash(Integer key) {
-		return key % this.table.length;
+	public int hash(String key) {
+		return Math.abs(key.hashCode() % this.table.length);
 	}
 	
-	public Person get(Integer key) {
+	public Person get(String key) {
 		int hash = hash(key);
 		ArrayList<Person> people = this.table[hash];
 		
@@ -26,7 +26,7 @@ public class HashTable {
 			return null;
 		
 		for (Person personCurrent : people) {
-			if (personCurrent.getMatricula().equals(key)) {
+			if (personCurrent.getCpf().equals(key)) {
 				return personCurrent;
 			}
 		}
@@ -34,7 +34,7 @@ public class HashTable {
 		return null;
 	}
 	
-	public void put(Integer key, Person value) {
+	public void put(String key, Person value) {
 		int hash = hash(key);
 		ArrayList<Person> people = this.table[hash];
 		
@@ -44,7 +44,7 @@ public class HashTable {
 			this.table[hash] = people;
 		} else {
 			for (int i = 0; i < people.size(); i++) {
-				if (people.get(i).getMatricula().equals(key)) {
+				if (people.get(i).getCpf().equals(key)) {
 					people.set(i, value);
 					return;
 				}
@@ -53,7 +53,7 @@ public class HashTable {
 		}
 	} 
 	
-	public Person remove(Integer key) {
+	public Person remove(String key) {
 		int hash = hash(key);
 		Person removed = this.get(key);
 		this.table[hash] = null;
