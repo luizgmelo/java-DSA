@@ -1,11 +1,12 @@
 package hashtable;
 
 public class Person {
-	private String cpf;
+	private Integer matricula;
 	private String name;
 	private int age;
 	
-	public Person(String name, int age) {
+	public Person(Integer matricula, String name, int age) {
+		this.matricula = matricula;
 		this.name = name;
 		this.age = age;
 	}
@@ -18,7 +19,7 @@ public class Person {
 		return age;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}	
+	public Integer getMatricula() {
+		return matricula;
+	}
 }

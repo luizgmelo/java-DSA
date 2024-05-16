@@ -13,14 +13,12 @@ public class HashTable {
 	public HashTable(int capacity) {
 		this.table = new ArrayList[capacity];
 	}
-
-	private int hash(String key) {
-		key = key.replace("-", "").replace(".", "");
-		return Integer.parseInt(key) % this.table.length;
+	
+	public int hash(Integer key) {
+		return key % this.table.length;
 	}
 	
-	// <TO-DO> Test to get
-	public Person get(String key) {
+	public Person get(Integer key) {
 		int hash = hash(key);
 		ArrayList<Person> people = this.table[hash];
 		
@@ -28,7 +26,7 @@ public class HashTable {
 			return null;
 		
 		for (Person personCurrent : people) {
-			if (personCurrent.getCpf().equals(key)) {
+			if (personCurrent.getMatricula().equals(key)) {
 				return personCurrent;
 			}
 		}
@@ -36,27 +34,29 @@ public class HashTable {
 		return null;
 	}
 	
-	public void put(int key, Person value) {
+	public void put(Integer key, Person value) {
 		int hash = hash(key);
 		ArrayList<Person> people = this.table[hash];
 		
 		if (people == null) {
-			// <TO-DO> add new value
-		}
-		
-		for (Person personCurrent : people) {
-			if (personCurrent.getCpf().equals(key)) {
-				// <TO-DO> update value already exist
+			people = new ArrayList<Person>();
+			people.add(value);
+			this.table[hash] = people;
+		} else {
+			for (int i = 0; i < people.size(); i++) {
+				if (people.get(i).getMatricula().equals(key)) {
+					people.set(i, value);
+					return;
+				}
 			}
+			people.add(value);
 		}
-		
-		return null;
 	} 
 	
-	public Person remove(int key) {
+	public Person remove(Integer key) {
 		int hash = hash(key);
 		Person removed = this.get(key);
-		this.table[key] = null;
+		this.table[hash] = null;
 		return removed;
 	}	
 
