@@ -1,6 +1,7 @@
 package hashtable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class HashTable {
 	private ArrayList<Person>[] table;
@@ -55,9 +56,23 @@ public class HashTable {
 	
 	public Person remove(String key) {
 		int hash = hash(key);
-		Person removed = this.get(key);
-		this.table[hash] = null;
-		return removed;
+		ArrayList<Person> people = this.table[hash];
+		
+		if (people == null)
+			return null;
+		
+		Iterator<Person> iteratorPerson = people.iterator();
+		Person current = null;
+		
+		while (iteratorPerson.hasNext()) {
+			current = iteratorPerson.next();
+			if (current.getCpf().equals(key)) {
+				iteratorPerson.remove();
+				return current;
+			}
+		}
+
+		return current;
 	}	
 
 }
