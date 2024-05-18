@@ -50,4 +50,34 @@ public class BinarySearchTree {
 		return null;
 	}
 	
+	// min for root
+	public Node min() {
+		if (isEmpty()) return null;
+		return min(this.root);	
+	}
+	
+	public Node min(Node node) {
+		Node aux = node;
+		
+		while (aux.left != null)
+			aux = aux.left;
+			
+		return aux;	
+	}
+	
+	// max for root
+	public Node max() {
+		if (isEmpty()) return null;
+		return max(this.root);
+	}
+	
+	public Node max(Node node) {
+		Node aux = node;
+		
+		while (aux.right != null)
+			aux = aux.right;
+
+		return aux;
+	}
+	
 }
