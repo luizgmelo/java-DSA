@@ -172,6 +172,41 @@ public class BinarySearchTree {
 		
 	}
 	
+	public void preOrder() {
+		preOrder(this.root);
+	}
+	
+	private void preOrder(Node node) {
+		if (node != null) {
+			System.out.println(node.value);
+			preOrder(node.left);
+			preOrder(node.right);
+		}
+	}
+	
+	public void inOrder() {
+		inOrder(this.root);
+	}
+	
+	private void inOrder(Node node) {
+		if (node != null) {
+			inOrder(node.left);
+			System.out.println(node.value);
+			inOrder(node.right);
+		}
+	}
+	
+	public void postOrder() {
+		postOrder(this.root);
+	}
+	
+	private void postOrder(Node node) {
+		if (node != null) {
+			postOrder(node.left);
+			System.out.println(node.value);
+			postOrder(node.right);
+		}
+	}
 
 	
 }
