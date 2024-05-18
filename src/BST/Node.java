@@ -10,4 +10,19 @@ public class Node {
 		value = v;
 	}
 	
+	public boolean isLeaf() {
+		return this.left == null && this.right == null;
+	}
+	
+	public boolean hasOnlyLeftChild() {
+		return this.left != null && this.right == null;
+	}
+	
+	public boolean hasOnlyRightChild() {
+		return this.left == null && this.right != null;
+	}
+	
+	public boolean hasTwoChild() {
+		return this.left != null && this.right != null;
+	}
 }

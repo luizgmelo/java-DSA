@@ -121,5 +121,57 @@ public class BinarySearchTree {
 		return 1 + Math.max(height(node.left), height(node.right));
 	}
 	
+	public void remove(Node toRemove) {
+		// Case 1: Is Leaf
+		if (toRemove.isLeaf()) {
+			if (toRemove == this.root) {
+				this.root = null;
+			} else {
+				if (toRemove.parent.value > toRemove.value) {
+					toRemove.parent.left = null;
+				} else {
+					toRemove.parent.right = null;
+				}
+			}
+		}
+		// Case 2: Has Only Child
+		if (toRemove.hasOnlyLeftChild()) {
+			if (toRemove == this.root) {
+				this.root = toRemove.left;
+				this.root.parent = null;
+			} else {
+				toRemove.left.parent = toRemove.parent;
+				if (toRemove.parent.value > toRemove.value) {
+					toRemove.parent.left = toRemove.left;
+				} else {
+					toRemove.parent.right = toRemove.left;
+				}
+			}
+		}
+		
+		if (toRemove.hasOnlyRightChild()) {
+			if (toRemove == this.root) {
+				this.root = this.root.right;
+				this.root.parent = null;
+			} else {
+				toRemove.right.parent = toRemove.parent;
+				if (toRemove.parent.value > toRemove.value) {
+					toRemove.parent.left = toRemove.right;
+				} else {
+					toRemove.parent.right = toRemove.right;
+				}
+			}
+		}
+		
+		// Case 3: Has Two Child
+		if (toRemove.hasTwoChild()) {
+			Node sucessor = this.successor(toRemove);
+			toRemove.value = sucessor.value;
+			remove(sucessor);
+		}
+		
+	}
+	
+
 	
 }
