@@ -81,8 +81,7 @@ public class BinarySearchTree {
 	}
 	
 	public Node successor(Node node) {
-		if (isEmpty()) return null;
-		if (this.root.left == null && this.root.right == null) return null;
+		if (node == null) return null;
 		
 		if (node.right != null)
 			return this.min(node.right);
@@ -96,4 +95,22 @@ public class BinarySearchTree {
 			return aux;
 		}
 	}
+	
+	public Node predecessor(Node node) {
+		if (node == null) return null;
+		
+		if (node.left != null) {
+			return max(node.left);
+		} else {
+			Node aux = node.parent;
+			
+			while (aux != null && aux.value > node.value) {
+				aux = aux.parent;
+			}
+			
+			return aux;
+		}
+	}
+	
+	
 }
