@@ -80,4 +80,20 @@ public class BinarySearchTree {
 		return aux;
 	}
 	
+	public Node successor(Node node) {
+		if (isEmpty()) return null;
+		if (this.root.left == null && this.root.right == null) return null;
+		
+		if (node.right != null)
+			return this.min(node.right);
+		else {
+			Node aux = node.parent;
+			
+			while (aux != null && aux.value < node.value) {
+				aux = aux.parent;
+			}
+			
+			return aux;
+		}
+	}
 }
