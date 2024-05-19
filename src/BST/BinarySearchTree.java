@@ -124,7 +124,15 @@ public class BinarySearchTree {
 		return 1 + Math.max(height(node.left), height(node.right));
 	}
 	
-	public void remove(Node toRemove) {
+	public void remove (int element) {
+		Node toRemove = search(element);
+		if (toRemove != null) {
+			remove(toRemove);
+			this.size--;
+		}
+	}
+	
+	private void remove(Node toRemove) {
 		// Case 1: Is Leaf
 		if (toRemove.isLeaf()) {
 			if (toRemove == this.root) {
