@@ -26,14 +26,14 @@ public class BinarySearchTree {
 			if (aux.value > element) {
 				if (aux.left == null) {
 					aux.left = new Node(element);
-					aux.parent = aux;
+					aux.left.parent = aux;
 					return;
 				}
 				aux = aux.left;
 			} else {
 				if (aux.right == null) {
 					aux.right = new Node(element);
-					aux.parent = aux;
+					aux.right.parent = aux;
 					return;
 				}
 				aux = aux.right;
