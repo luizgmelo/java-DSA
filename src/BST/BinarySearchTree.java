@@ -1,5 +1,6 @@
 package BST;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -219,7 +220,8 @@ public class BinarySearchTree {
 		}
 	}
 
-	public void printBFS() {
+	public ArrayList<Integer> bfs() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
 		Deque<Node> queue = new LinkedList<Node>();
 		
 		if (!isEmpty()) {
@@ -227,7 +229,7 @@ public class BinarySearchTree {
 			while (!queue.isEmpty()) {
 				Node current = queue.removeFirst();
 				
-				System.out.println(current);
+				list.add(current.value);
 				
 				if (current.left != null)
 					queue.addLast(current.left);;
@@ -235,6 +237,7 @@ public class BinarySearchTree {
 					queue.addLast(current.right);
 			}
 		}
+		return list;
 	}
 	
 }
