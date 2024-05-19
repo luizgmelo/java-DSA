@@ -1,5 +1,7 @@
 package heap;
 
+import java.util.NoSuchElementException;
+
 public class Heap {
 	private int[] heap;
 	private int tail;
@@ -7,6 +9,7 @@ public class Heap {
 	public Heap(int capacity) {
 		this.heap = new int[capacity];
 		this.tail = -1;
+		buildHeap();
 	}
 	
 	public boolean isEmpty() {
@@ -48,8 +51,66 @@ public class Heap {
 			i = parent(i);
 		}
 	}
-
 	
+	// also called extractMax()
+	public int remove() {
+		if (isEmpty()) throw new NoSuchElementException("Empty");
+		
+		int element = this.heap[0];
+		this.heap[0] = this.heap[this.tail];
+		this.tail--;
+		
+		this.heapify(0);
+		
+		return element;
+	}
+	
+	private void heapify(int index) {
+		if (isLeaf(index) || !isValidIndex(index))
+			return;
+		
+		// compare current, left, right and find the max
+		int indexMax = indexMax(index, left(index), right(index));
+		
+		// swap current with max
+		if (indexMax != index) {
+			swap(indexMax, index);
+			heapify(indexMax);
+		}
+	}
+	
+	private boolean isLeaf(int index) {
+		return index > parent(tail) && index <= tail;
+	}
+	
+	private boolean isValidIndex(int index) {
+		return index >= 0 && index <= tail;
+	}
+
+	private int indexMax(int index, int left, int right) {
+		if (this.heap[index] > this.heap[left]) {
+			if (isValidIndex(right))
+				if (this.heap[index] < this.heap[right])
+					return right;
+			return index;
+		} else {
+			if (isValidIndex(right))
+				if (this.heap[left] < this.heap[right])
+					return right;
+			return left;
+		}
+	}
+	
+	private void swap(int i, int j) {
+		int aux = this.heap[i];
+		this.heap[i] = this.heap[j];
+		this.heap[j] = aux;	
+	}
+	
+	private void buildHeap() {
+		for (int i = parent(this.tail); i >= 0; i--)
+			heapify(i);
+	}
 	
 	
 }
