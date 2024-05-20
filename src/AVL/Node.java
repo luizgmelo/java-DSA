@@ -25,26 +25,28 @@ public class Node {
 		}
 	}
 	
-	private int balance() {
-		int left = this.left == null ? 0 : this.left.height();
-		int right = this.right == null ? 0 : this.right.height();
+	public int balance() {
+		int left = this.left == null ? -1 : this.left.height();
+		int right = this.right == null ? -1 : this.right.height();
 		return left - right;
 	}
 	
 	public boolean isLeftPending() {
-		return this.balance() == 1;
+		int left = this.left == null ? -1 : this.left.height();
+		int right = this.right == null ? -1 : this.right.height();
+		return left - right >= 1;
 	}
 	
 	public boolean isRightPending() {
-		return this.balance() == -1;
+		int left = this.left == null ? -1 : this.left.height();
+		int right = this.right == null ? -1 : this.right.height();
+		return left - right <= -1;
 	}
 	
 	public boolean isBalanced() {
-		return this.balance() == 0;
-	}
-	
-	public boolean isUnbalanced() {
-		return this.balance() <= -2 || this.balance() >= 2;
+		int left = this.left == null ? -1 : this.left.height();
+		int right = this.right == null ? -1 : this.right.height();
+		return left - right >= -1 && left - right <= 1;
 	}
 	
 }
