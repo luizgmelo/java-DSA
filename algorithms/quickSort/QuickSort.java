@@ -10,6 +10,11 @@ public class QuickSort {
 	}
 	
 	public static int partition(int[] values, int left, int right) {
+		int range = right - left + 1;
+		int rand_pivot_index = (int)(Math.random() * range) + left;
+		
+		swap(values, left, rand_pivot_index);
+		
 		int pivot = values[left];
 		int i = left;
 		
